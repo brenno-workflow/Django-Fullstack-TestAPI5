@@ -43,7 +43,7 @@ def signup(request):
                 return JsonResponse({'message': 'Cadastro realizado com sucesso'})
             
             else:
-                
+
                 # Retornar uma resposta JSON com erros de validação
                 return JsonResponse({'errors': form.errors}, status=400)
         
@@ -97,7 +97,7 @@ def login(request):
 
                     # Retornar uma mensagem de sucesso
                     #return JsonResponse({'message': 'Login realizado com sucesso', 'token': token, 'id': user.id})
-                    return JsonResponse({'message': 'Login realizado com sucesso', 'payload2': payload})
+                    return JsonResponse({'message': 'Login realizado com sucesso', 'payload': payload})
                 
                 else:
 
@@ -107,7 +107,7 @@ def login(request):
             except User.DoesNotExist:
 
                 # Usuário não encontrado, retornar mensagem de erro
-                return JsonResponse({'error': 'Usuário não encontrado'}, status=404)
+                return JsonResponse({'error': 'Usuário não encontrado'}, status=200)
             
         else:
             
