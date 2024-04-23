@@ -5,6 +5,7 @@ pip install django
 pip install mysqlclient
 pip install django djangorestframework
 pip install djangorestframework-jwt
+pip install python-dotenv
 
 # Projetos
 No terminal, digitar:

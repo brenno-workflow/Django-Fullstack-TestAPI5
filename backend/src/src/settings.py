@@ -12,15 +12,21 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+# Buscar as informações do arquivo .env
+from dotenv import load_dotenv
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Carrega as variáveis de ambiente do arquivo .env
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(ra&kg1s%vt9()z95qk51kn!!jcj*0iu35jwh_z_=b0_mu=f(5'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,17 +87,17 @@ WSGI_APPLICATION = 'src.wsgi.application'
 DATABASES = {
     'default': {
         # Altera o motor de banco de dados para MySQL
-        'ENGINE': 'django.db.backends.mysql', 
+        'ENGINE': os.getenv('ENGINE'), 
         # Nome do banco de dados  
-        'NAME': 'curriculum42_full', 
+        'NAME': os.getenv("NAME"), 
         # Usuário do banco de dados (padrão defaut - 'root')             
-        'USER': 'root',
+        'USER': os.getenv("USER"), 
         # Senha do banco de dados (se houver)                      
-        'PASSWORD': '',  
+        'PASSWORD': os.getenv("PASSWORD"), 
         # Host do banco de dados (no caso, 'localhost')                       
-        'HOST': 'localhost', 
+        'HOST': os.getenv("HOST"),
         # Porta do banco de dados (opcional, padrão para MySQL é 3306)                   
-        'PORT': '3306', 
+        'PORT': os.getenv("PORT") 
     }
 }
 
@@ -140,6 +146,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Configurar a configuração do REST Framework para API (GET, POST)
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # Outros autenticadores, se houver
     ),
+    # Outras configurações REST_FRAMEWORK, se houver
 }
