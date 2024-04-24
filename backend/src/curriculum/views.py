@@ -100,11 +100,9 @@ def update(request):
 
             # Atualize os links
             for link_data in data['links']:
-                print(link_data)  # Verifique o conteúdo de link_data
                 link_id = link_ids.pop(0) if link_ids else None
-                print(link_id)  # Verifique o valor de link_id
                 if link_id:
-                    print('teste')
+                    print(f'link_id: {link_id}')
                     link = Link.objects.get(pk=link_id)
                     link.name = link_data['name']
                     link.url = link_data['url']
@@ -116,6 +114,7 @@ def update(request):
             for exp_data in data['experience']:
                 exp_id = experience_ids.pop(0) if experience_ids else None
                 if exp_id:
+                    print(f'exp_id: {exp_id}')
                     experience = Experience.objects.get(pk=exp_id)
                     experience.company = exp_data['company']
                     experience.position = exp_data['position']
@@ -129,6 +128,7 @@ def update(request):
             for edu_data in data['education']:
                 edu_id = education_ids.pop(0) if education_ids else None
                 if edu_id:
+                    print(f'edu_id: {edu_id}')
                     education = Education.objects.get(pk=edu_id)
                     education.institution = edu_data['institution']
                     education.course = edu_data['course']
@@ -139,21 +139,23 @@ def update(request):
                     Education.objects.create(user=user, **edu_data)
 
             # Atualize as habilidades
-            for skill_data in data['skills']:
-                skill_id = skill_ids.pop(0) if skill_ids else None
+            for index, skill_data in enumerate(data['skills']):
+                skill_id = skill_ids[index] if index < len(skill_ids) else None
                 if skill_id:
+                    print(f'skill_id: {skill_id}')
                     skill = Skill.objects.get(pk=skill_id)
-                    skill.name = skill_data['name']
+                    skill.name = skill_data
                     skill.save()
                 else:
-                    Skill.objects.create(user=user, name=skill_data['name'])
+                    Skill.objects.create(user=user, name=skill_data)
 
-            # Atualize os tópicos personalizados
+            # Atualize os gráficos e tópicos personalizados
             for custom_data in data['Custom']:
                 custom_id = None
                 if custom_data['topicType']['type'] == 'graphic':
                     custom_id = graphic_ids.pop(0) if graphic_ids else None
                     if custom_id:
+                        print(f'custom_id: {custom_id}')
                         graphic = Graphic.objects.get(pk=custom_id)
                         graphic.title = custom_data['title']
                         graphic.description = custom_data['description']
@@ -171,6 +173,7 @@ def update(request):
                 elif custom_data['topicType']['type'] == 'topics':
                     custom_id = topic_ids.pop(0) if topic_ids else None
                     if custom_id:
+                        print(f'custom_id: {custom_id}')
                         topic = Topic.objects.get(pk=custom_id)
                         topic.title = custom_data['title']
                         topic.description = custom_data['description']
