@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     # Adicionar os novos aplicativos
     'login',
+    'accounts',
     'home',
     'curriculum',
 ]

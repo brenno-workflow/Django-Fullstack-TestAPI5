@@ -15,7 +15,6 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
 class Link(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
@@ -23,7 +22,6 @@ class Link(models.Model):
     status = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
 
 class Experience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -35,7 +33,6 @@ class Experience(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     institution = models.CharField(max_length=100)
@@ -45,7 +42,6 @@ class Education(models.Model):
     status = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
 
 class Skill(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -59,7 +55,7 @@ class Graphic(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     percentage = models.FloatField()
-    color = models.CharField(max_length=7)  # Assumindo que o código de cor será fornecido como uma string hexadecimal, ex: "#000000"
+    color = models.CharField(max_length=7)  # código de cor será fornecido como uma string hexadecimal, ex: "#000000"
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -229,3 +229,40 @@ def delete(request):
             return JsonResponse({'error': str(e)}, status=500)
 
     return JsonResponse({'error': 'Método não permitido'}, status=405)
+
+@csrf_exempt
+def list(request):
+    try:
+        # Consulta todos os usuários (currículos)
+        users = User.objects.all()
+
+        # Lista para armazenar os currículos formatados
+        cvs = []
+        my_cvs = []
+
+        # Itera sobre os usuários e formata os dados
+        for user in users:
+            cv_data = {
+                "name": user.name,
+                "title": user.title,
+                "key": str(user.pk)  # Chave do currículo é o ID do usuário
+            }
+
+            # Adiciona o currículo à lista correspondente
+            if user.status:
+                cvs.append(cv_data)
+            else:
+                my_cvs.append(cv_data)
+
+        # Cria o objeto de resposta com os currículos formatados
+        response_data = {
+            "cvs": cvs,
+            "myCvs": my_cvs
+        }
+
+        # Retorna a resposta como JSON
+        return JsonResponse(response_data)
+
+    except Exception as e:
+        # Em caso de qualquer exceção, retorne uma resposta de erro
+        return JsonResponse({'error': str(e)}, status=500)

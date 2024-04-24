@@ -22,6 +22,7 @@ urlpatterns = [
 
     # Adicionar arquivo de urls por aplicativo
     path('login/', include('login.urls')),
+    path('accounts/', include('accounts.urls')),
     path('home/', include('home.urls')),
     path('curriculum/', include('curriculum.urls')),
 ]
